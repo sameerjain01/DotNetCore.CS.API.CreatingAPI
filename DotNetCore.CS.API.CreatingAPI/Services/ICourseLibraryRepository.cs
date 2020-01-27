@@ -1,4 +1,5 @@
 ﻿using DotNetCore.CS.API.CreatingAPI.Entities;
+using DotNetCore.CS.API.CreatingAPI.ResourceParameters;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +14,8 @@ namespace DotNetCore.CS.API.CreatingAPI.Services
     void UpdateCourse(Course course);
     void DeleteCourse(Course course);
     IEnumerable<Author> GetAuthors();
+    IEnumerable<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
+    IEnumerable<Author> GetAuthors(string mainCategory, string search);
     Author GetAuthor(Guid authorId);
     IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds);
     void AddAuthor(Author author);

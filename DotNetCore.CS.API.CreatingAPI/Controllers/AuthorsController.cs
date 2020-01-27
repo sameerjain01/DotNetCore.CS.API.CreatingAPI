@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DotNetCore.CS.API.CreatingAPI.Models;
+using DotNetCore.CS.API.CreatingAPI.ResourceParameters;
 using DotNetCore.CS.API.CreatingAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +19,7 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
     {
       _courseLibraryRepository = courselibraryRepository ??
         throw new ArgumentNullException(nameof(courselibraryRepository));
-     
+
       _mapper = mapper ??
         throw new ArgumentNullException(nameof(mapper));
     }
@@ -34,7 +35,7 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
     [HttpGet("{id}")]
     public ActionResult<AuthorDto> GetAuthor(Guid id)
     {
-      
+
       //NOT Great code since two call
       //if (!_courseLibraryRepository.AuthorExists(id))
       //{
@@ -47,17 +48,30 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
         return NotFound();
       }
 
-      return  Ok(_mapper.Map<AuthorDto>(authorFromRepo));
+      return Ok(_mapper.Map<AuthorDto>(authorFromRepo));
     }
+
+    //[HttpGet()]
+    //[HttpHead]
+    //// public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory) //This is fine but better readability we can you use
+    ////public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery] string mainCategory) //using attribute [fromquery] helps increasing readability
+    ////ideally we need to use the [FromQuery(Name="<key for query string>")] using the name property helps you hide the query string and implementation detail
+    //public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery(Name = "mc")] string mainCategory, [FromQuery] string search)
+    //{
+    //  var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory, search);
+
+
+    //  return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
+    //}
 
     [HttpGet()]
     [HttpHead]
-    public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors([FromQuery] AuthorsResourceParameters authorsResourceParms)
     {
-      var authorsFromRepo = _courseLibraryRepository.GetAuthors();
+      var authorsFromRepo = _courseLibraryRepository.GetAuthors(authorsResourceParms);
 
 
-      return Ok(_mapper.Map< IEnumerable<AuthorDto>>(authorsFromRepo));
+      return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
     }
   }
 }
