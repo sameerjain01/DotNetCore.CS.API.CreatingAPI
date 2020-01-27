@@ -1,4 +1,5 @@
-﻿using DotNetCore.CS.API.CreatingAPI.Entities;
+﻿using AutoMapper;
+using DotNetCore.CS.API.CreatingAPI.Models;
 using DotNetCore.CS.API.CreatingAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,9 +12,15 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
   public class AuthorsController : ControllerBase
   {
     private readonly ICourseLibraryRepository _courseLibraryRepository;
-    public AuthorsController(ICourseLibraryRepository courselibraryRepository)
+    private readonly IMapper _mapper;
+
+    public AuthorsController(ICourseLibraryRepository courselibraryRepository, IMapper mapper)
     {
-      _courseLibraryRepository = courselibraryRepository ?? throw new ArgumentNullException(nameof(courselibraryRepository));
+      _courseLibraryRepository = courselibraryRepository ??
+        throw new ArgumentNullException(nameof(courselibraryRepository));
+     
+      _mapper = mapper ??
+        throw new ArgumentNullException(nameof(mapper));
     }
 
     //[HttpGet("api/authors/test")]
@@ -25,7 +32,7 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
     //}
 
     [HttpGet("{id}")]
-    public IActionResult GetAuthor(Guid id)
+    public ActionResult<AuthorDto> GetAuthor(Guid id)
     {
       
       //NOT Great code since two call
@@ -34,22 +41,23 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
       //  return NotFound();
       //}
 
-      var authors = _courseLibraryRepository.GetAuthor(id);
-      if (authors == null)
+      var authorFromRepo = _courseLibraryRepository.GetAuthor(id);
+      if (authorFromRepo == null)
       {
         return NotFound();
       }
 
-      return  Ok(authors);
+      return  Ok(_mapper.Map<AuthorDto>(authorFromRepo));
     }
 
     [HttpGet()]
-    public IActionResult GetAuthors()
+    [HttpHead]
+    public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
     {
-      var authors = _courseLibraryRepository.GetAuthors();
+      var authorsFromRepo = _courseLibraryRepository.GetAuthors();
 
 
-      return Ok(authors);
+      return Ok(_mapper.Map< IEnumerable<AuthorDto>>(authorsFromRepo));
     }
   }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using DotNetCore.CS.API.CreatingAPI.DbContexts;
 using DotNetCore.CS.API.CreatingAPI.Services;
 using Microsoft.AspNetCore.Builder;
@@ -8,12 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace DotNetCore.CS.API.CreatingAPI
 {
   public class Startup
   {
-    
+
 
     public Startup(IConfiguration configuration)
     {
@@ -31,6 +33,11 @@ namespace DotNetCore.CS.API.CreatingAPI
         setupAction.ReturnHttpNotAcceptable = true;
       }).AddXmlDataContractSerializerFormatters();//This add the support format Serializer
 
+
+      //using AppDomain.currentDomain.getassemblies() we are telling our system to 
+      //scan for all assemblies to add profiles
+      services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
       services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
       services.AddDbContext<CourseLibraryContext>(options =>
@@ -47,6 +54,20 @@ namespace DotNetCore.CS.API.CreatingAPI
       {
         app.UseDeveloperExceptionPage();
       }
+      else
+      {
+        app.UseExceptionHandler(appBuilder =>
+        {
+          appBuilder.Run(async context =>
+         {
+           context.Response.StatusCode = 500;
+           await context.Response.WriteAsync("An unexpected exception has happened");
+         });
+        });
+
+        //This is also a good place to write custom log for your developer or any logger which may be available
+      }
+
 
       app.UseRouting();
 

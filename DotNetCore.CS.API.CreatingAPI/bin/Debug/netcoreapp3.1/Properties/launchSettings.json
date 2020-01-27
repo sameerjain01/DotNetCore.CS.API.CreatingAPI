@@ -14,16 +14,15 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "nativeDebugging": false,
       "applicationUrl": "http://localhost:51044"
     },
     "DotNetCore.CS.API.CreatingAPI": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:51044"
     }
   }
 }

@@ -46,5 +46,6 @@ C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCor
 C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\obj\Debug\netcoreapp3.1\DotNetCore.CS.API.CreatingAPI.MvcApplicationPartsAssemblyInfo.cache
-C:\00AllDevProjects\03-DotNet\DotNetCore\DotNetCore.CS.API.CreatingAPI\DotNetCore.CS.API.CreatingAPI\obj\Debug\netcoreapp3.1\DotNetCore.CS.API.CreatingAPI.csprojAssemblyReference.cache
