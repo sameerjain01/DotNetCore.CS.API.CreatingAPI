@@ -32,7 +32,7 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
     //  return new OkResult();
     //}
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetAuthor")]
     public ActionResult<AuthorDto> GetAuthor(Guid id)
     {
 
@@ -72,6 +72,24 @@ namespace DotNetCore.CS.API.CreatingAPI.Controllers
 
 
       return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
+    }
+
+    [HttpPost()]
+    public ActionResult<AuthorDto> CreateAuthor(AuthorForCreationDto author)
+    {
+      //this is not need since we are using APIController Attribute which already does this check and retrun
+      //bad request in case of base values and bad parameters
+      //if (author == null)
+      //{
+      //  return BadRequest();
+      //}
+
+      var authorEntity = _mapper.Map<Entities.Author>(author);
+      _courseLibraryRepository.AddAuthor(authorEntity);
+      _courseLibraryRepository.Save();
+
+      var authorToReturn= _mapper.Map<AuthorDto>(authorEntity);
+      return CreatedAtRoute("GetAuthor", new { id = authorToReturn.Id }, authorToReturn);
     }
   }
 }
